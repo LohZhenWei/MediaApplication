@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MediaApplication</string>
+
+
+    <string name="label_media_player">Media Player</string>
+    <string name="label_image_gallery">Image Gallery</string>
+    <string name="label_videos">Videos</string>
+    <string name="label_audios">Audios</string>
+</resources>
