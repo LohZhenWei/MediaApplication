@@ -27,13 +27,11 @@ abstract class BaseFragment<ViewModelType : BaseViewModel> : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.apply {
-            //show progress dialog
             observe(showProgressEvent) {
-
+                //show progress dialog
             }
-            //hide progress dialog
             observe(hideProgressEvent) {
-
+                //hide progress dialog
             }
             observe(showErrorEvent) {
                 // show error dialog

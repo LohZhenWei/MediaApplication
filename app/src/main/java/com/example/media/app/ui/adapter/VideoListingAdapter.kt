@@ -1,20 +1,21 @@
 package com.example.media.app.ui.adapter
 
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.media.app.R
 import com.example.media.app.databinding.ItemVideoBinding
 import com.example.media.app.model.VideoInfo
+import com.example.media.app.util.ImageUtil
 import kotlin.properties.Delegates
 
 
 class VideoListingAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), DiffAdapter {
 
     internal var data: List<VideoInfo> by Delegates.observable(emptyList()) { property, oldValue, newValue ->
-        autoNotify(oldValue, newValue) { o, n -> o.id == n.id }
+        notify(oldValue, newValue) { o, n -> o.id == n.id }
     }
 
     override fun getItemCount(): Int = data.size
@@ -46,7 +47,9 @@ class VideoListingViewHolder(private val binding: ItemVideoBinding) :
 
     fun bind(data: VideoInfo, mOnVideoClick: (VideoInfo) -> Unit = {}) {
         binding.root.setOnClickListener { mOnVideoClick.invoke(data) }
-        binding.tvLabelTitle.text = data.displayName
+        binding.tvLabelDescription.text = data.displayName
+        ImageUtil().load(binding.root.context, data.path ?: "", binding.ivThumbnail)
     }
+
 }
 

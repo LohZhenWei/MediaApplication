@@ -1,28 +1,26 @@
 package com.example.media.app.repository
 
 import android.content.Context
-import android.net.Uri
 import android.provider.MediaStore
 import androidx.core.database.getLongOrNull
 import com.example.media.app.model.AudioInfo
 import com.example.media.app.model.VideoInfo
-import timber.log.Timber
+import io.reactivex.Single
 
 interface MediaRepository {
-    fun getAllVideo(): List<VideoInfo>
+    fun getAllVideo(): Single<List<VideoInfo>>
 
     fun getAllAudio(): List<AudioInfo>
 }
 
 class MediaRepositoryImpl(val context: Context) : MediaRepository {
 
-
     override fun getAllAudio(): List<AudioInfo> {
         return getAudio()
     }
 
-    override fun getAllVideo(): List<VideoInfo> {
-        return getAllVideos()
+    override fun getAllVideo(): Single<List<VideoInfo>> {
+        return Single.just(getAllVideos())
     }
 
     private val videoProjection = arrayOf(
@@ -54,12 +52,12 @@ class MediaRepositoryImpl(val context: Context) : MediaRepository {
 
                 videos.add(
                     VideoInfo(
-                        id,
-                        path,
-                        duration,
-                        mimeType,
-                        displayName,
-                        dateAdded
+                        id = id,
+                        path = path,
+                        duration = duration,
+                        mimeType = mimeType,
+                        displayName = displayName,
+                        dateAdded = dateAdded
                     )
                 )
             }

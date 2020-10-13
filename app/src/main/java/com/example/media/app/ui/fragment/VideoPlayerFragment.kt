@@ -24,11 +24,10 @@ class VideoPlayerFragment : BaseFragment<VideoPlayerViewModel>() {
     }
 
     private val args: VideoPlayerFragmentArgs by navArgs()
-    private var path = ""
+    private val path by lazy { args.path }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        path = args.path
         if (args.path.isNotEmpty()) {
             val dataSourceFactory = DefaultDataSourceFactory(requireContext(), "Safe")
             val file = File(path)

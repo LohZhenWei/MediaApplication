@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/graph_image_gallery_activity"
+    app:startDestination="@id/imageGalleryFragment"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/imageGalleryFragment"
+        android:name="com.example.media.app.ui.fragment.ImageGalleryFragment"
+        android:label="ImageGalleryFragemnt"
+        tools:layout="@layout/fragment_image_gallery" />
+</navigation>

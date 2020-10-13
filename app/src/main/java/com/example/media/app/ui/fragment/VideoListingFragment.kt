@@ -1,19 +1,16 @@
 package com.example.media.app.ui.fragment
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.media.app.R
+import com.example.media.app.extension.observe
 import com.example.media.app.ui.adapter.VideoListingAdapter
 import com.example.media.app.ui.viewmodel.VideoListingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_video_list.*
-import timber.log.Timber
-import java.io.File
-import java.io.FileOutputStream
 
 @AndroidEntryPoint
 class VideoListingFragment : BaseFragment<VideoListingViewModel>() {
@@ -28,6 +25,7 @@ class VideoListingFragment : BaseFragment<VideoListingViewModel>() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         initListener()
+        initObserver()
     }
 
     private fun initView() {
@@ -35,13 +33,19 @@ class VideoListingFragment : BaseFragment<VideoListingViewModel>() {
             layoutManager = LinearLayoutManager(context)
             adapter = videoListingAdapter
         }
-        videoListingAdapter.data = viewModel.getAllVideo()
+        videoListingAdapter.data = viewModel.onGetVideoSuccess.value ?: emptyList()
     }
 
     private fun initListener() {
         videoListingAdapter.mOnVideoClick = {
             val action = MediaMainFragmentDirections.actionToVideoPlayFragment(it.path ?: "")
             findNavController().navigate(action)
+        }
+    }
+
+    private fun initObserver() {
+        observe(viewModel.onGetVideoSuccess) {
+            videoListingAdapter.data = it
         }
     }
 

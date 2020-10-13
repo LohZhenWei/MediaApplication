@@ -4,8 +4,11 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.reactivex.disposables.CompositeDisposable
 
 open class BaseViewModel @ViewModelInject constructor() : ViewModel() {
+
+    protected val disposeBag = CompositeDisposable()
 
     private val _showProgressEvent: MutableLiveData<Unit> = MutableLiveData()
     val showProgressEvent: LiveData<Unit> get() = _showProgressEvent
@@ -27,5 +30,10 @@ open class BaseViewModel @ViewModelInject constructor() : ViewModel() {
 
     fun sendErrorMessage(throwable: Throwable) {
         _showErrorEvent.postValue(throwable)
+    }
+
+    override fun onCleared() {
+        disposeBag.clear()
+        super.onCleared()
     }
 }

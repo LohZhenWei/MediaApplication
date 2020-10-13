@@ -3,10 +3,10 @@ package com.example.media.app.ui.adapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
-
+/*General Diff util */
 interface DiffAdapter {
 
-    fun <T> RecyclerView.Adapter<*>.autoNotify(
+    fun <T> RecyclerView.Adapter<*>.notify(
         old: List<T>,
         new: List<T>,
         compare: (T, T) -> Boolean
